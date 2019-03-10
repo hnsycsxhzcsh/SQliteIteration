@@ -47,6 +47,4 @@ public class SQLiteConnectionDao {
             mDatabase.close();
         }
     }
-
-
 }

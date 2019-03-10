@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SQliteIteration.iml" filepath="$PROJECT_DIR$/SQliteIteration.iml" />
+      <module fileurl="file://E:\git\SQliteIteration\SQliteIteration.iml" filepath="E:\git\SQliteIteration\SQliteIteration.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\git\SQliteIteration\app\app.iml" filepath="E:\git\SQliteIteration\app\app.iml" />
     </modules>
   </component>
 </project>

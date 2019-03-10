@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mTvMessage = (TextView) findViewById(R.id.tv_message);
+        //TODO 因为数据库操作是耗时操作，以下的这些操作需放在异步中进行操作，我这里为了简便没有放异步中
 
         findViewById(R.id.bt_search).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 cv.put("body", "body" + count);
                 count++;
                 sqLiteDatabase.insert(MySQLiteOpenHelper.TABLE_NAME, null, cv);
+                instance.closeDatabase();
             }
         });
 
@@ -67,6 +70,31 @@ public class MainActivity extends AppCompatActivity {
                 cv.put("pic", "pic" + count);
                 count++;
                 sqLiteDatabase.insert(MySQLiteOpenHelper.TABLE_NAME, null, cv);
+                instance.closeDatabase();
+            }
+        });
+
+        findViewById(R.id.bt_update).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLiteConnectionDao instance = SQLiteConnectionDao.getInstance();
+                SQLiteDatabase sqLiteDatabase = instance.openDatabase();
+                ContentValues values = new ContentValues();
+                values.put("body","body_change");
+                int update = sqLiteDatabase.update(MySQLiteOpenHelper.TABLE_NAME, values, "title=?", new String[]{"title1"});
+                Toast.makeText(Token.getContext(), "更新了"+update, Toast.LENGTH_SHORT).show();
+                instance.closeDatabase();
+            }
+        });
+
+        findViewById(R.id.bt_delete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLiteConnectionDao instance = SQLiteConnectionDao.getInstance();
+                SQLiteDatabase sqLiteDatabase = instance.openDatabase();
+                int delete = sqLiteDatabase.delete(MySQLiteOpenHelper.TABLE_NAME, "title=?", new String[]{"title1"});
+                Toast.makeText(Token.getContext(), "删除了"+delete, Toast.LENGTH_SHORT).show();
+                instance.closeDatabase();
             }
         });
 
